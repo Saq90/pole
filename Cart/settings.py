@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'Cart.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dc7oc404ipk0n3',
-        'USER': 'hmbtmrhsagcpyn',
-        'PASSWORD':'22667cad9bc251399b720a7f7e9e12489e53256042c9a507192aa275484c4af7',
-        'HOST': 'ec2-3-95-87-221.compute-1.amazonaws.com',
+        'NAME': 'debe684mgds135',
+        'USER': 'wxbfjyvejcbley',
+        'PASSWORD':'c485b9cb28a75e4d9ad815b735b21a58d885911bb4726b7d708d7f9c62f863fb',
+        'HOST': 'ec2-52-71-107-99.compute-1.amazonaws.com',
         'Port': '5432'
 
     }
