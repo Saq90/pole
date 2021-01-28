@@ -61,3 +61,7 @@ def Login(request):
 
 
 
+def Logout(request):
+    auth.logout(request)
+    return redirect('/')
+
