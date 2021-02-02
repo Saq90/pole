@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as messages
 from pathlib import Path
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '2itqe$yk(da2ldqzprf29)(*f!g^(0wxx2a!y30+72a^uv^_tn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -135,3 +136,7 @@ MEDIA_ROOT= os.path.join(BASE_DIR,'media')
 
 SITE_ID =1
 LOGIN_REDIRECT_URL="/"
+
+MESSAGE_TAGS = {
+    messages.ERROR:'danger'
+}

@@ -3,7 +3,7 @@ from django.http import HttpResponse,HttpRequest
 from django.contrib.auth.models import User ,auth
 from.models import Product ,Contact
 from math import ceil
-
+from django.contrib import messages
 def home(request):
     products= Product.objects.all()
     n= len(products)
@@ -20,9 +20,13 @@ def contact(request):
         name=request.POST.get('name', '')
         phone=request.POST.get('phone', '')
         address=request.POST.get('address', '')
-        contact = Contact(name=name,phone=phone,address=address)
-        contact.save()
-        return redirect('/')
+        if len(name)<2  or len(phone)<10 or len(address)<4:
+            messages.error(request, "Please fill the form correctly")
+        else:
+            contact = Contact(name=name,phone=phone,address=address)
+            contact.save()
+            messages.success(request, "Thank you for contactUs")
+            return redirect('/')
     return render(request,'contact.html')
 
 
@@ -34,11 +38,18 @@ def signup(request):
         username= request.POST['username']
         email= request.POST['email']
         password= request.POST['password']
-        user=User.objects.create_user(first_name=first_name,last_name=last_name, username=username,email=email,password=password)
-        user.save()
-        return redirect('/')
+        if len(username)>10:
+            messages.error(request, " Your user name must be under 10 characters")
+            return redirect('signup')
 
-
+        if not username.isalnum():
+            messages.error(request, " User name should only contain letters and numbers")
+            return redirect('signup')
+        else:
+             user=User.objects.create_user(first_name=first_name,last_name=last_name, username=username,email=email,password=password)
+             user.save()
+             messages.success(request,'you are successfully signup')
+             return redirect('/login/')
     return render (request,'signup.html')
 
 
@@ -51,11 +62,15 @@ def Login(request):
         loginpassword=request.POST['loginpassword']
 
         user=auth.authenticate(username= loginusername, password= loginpassword)
-        user.save()
+
         if user is not None:
             auth.login(request, user)
+            messages.success(request, "Successfully Logged In")
+            return redirect("home")
+        else:
+            messages.error(request, "Invalid credentials! Please try again")
+            return redirect("login")
 
-            return redirect('/')
     return render(request,'Login.html')
 
 
@@ -63,5 +78,6 @@ def Login(request):
 
 def Logout(request):
     auth.logout(request)
+    messages.success(request, "Successfully logged out")
     return redirect('/')
 
